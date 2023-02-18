@@ -2,16 +2,19 @@ import java.util.Arrays;
 
 public class Buss {
     private Station[] stations;
-    private Station location;
+    private Station currentStation;
 
-    public Buss(Station[] stations, Station location) {
+    public Buss(Station[] stations) {
         this.stations = stations;
-        this.location = location;
+        this.currentStation = null;
     }
 
-    public Void start() {
-        this.location = this.stations[0];
+    private void setCurrentStation(Station currentStation) {
+        this.currentStation = currentStation;
+    }
 
-        Arrays.stream(stations).map(station -> {station.whenBussStart()});
+    public void start() {
+        this.setCurrentStation(this.stations[0]);
+        Arrays.stream(stations).forEach(Station::whenBussStart);
     }
 }
